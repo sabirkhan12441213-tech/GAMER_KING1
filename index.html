@@ -29,20 +29,21 @@
         p {
             font-size: 14px;
             color: #cccccc;
+            line-height: 1.5;
         }
         #keyDisplay {
             margin-top: 20px;
             font-size: 16px;
-            color: #00ffcc;
+            color: #ff5555;
             font-weight: bold;
             word-break: break-all;
             background: #0a000f;
             padding: 12px;
             border-radius: 6px;
-            border: 1px dashed #00ffcc;
+            border: 1px dashed #ff5555;
         }
         .copied-msg {
-            font-size: 14px;
+            font-size: 13px;
             color: #00ff88;
             margin-top: 15px;
             font-weight: bold;
@@ -53,32 +54,39 @@
 
     <div class="container">
         <h2>GAMER Verification</h2>
-        <p>आपकी की (Key) लोड हो रही है...</p>
+        <p id="instructionText">कृपया पहले अपने मॉड ऐप को खोलें और वहाँ <b>'Get Key'</b> पर क्लिक करें।</p>
         
-        <!-- ऐप द्वारा भेजी गई की यहाँ दिखेगी -->
-        <div id="keyDisplay">लोड हो रहा है...</div>
+        <!-- की या एरर मैसेज यहाँ दिखेगा -->
+        <div id="keyDisplay">ऐप से की का इंतज़ार है...</div>
         <div id="msg" class="copied-msg"></div>
     </div>
 
     <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const appKey = urlParams.get('url'); // ध्यान दे, ऐप 'url' पैरामीटर में की भेज रहा है
+            const appKey = urlParams.get('url'); // ऐप इसी पैरामीटर में की भेज रहा है
             
             const keyBox = document.getElementById("keyDisplay");
             const msgBox = document.getElementById("msg");
+            const instText = document.getElementById("instructionText");
 
+            // अगर ऐप से की आई है तभी आगे बढ़ो
             if (appKey) {
+                instText.innerHTML = "आपकी की (Key) सफलतापूर्वक प्राप्त हो गई है:";
+                keyBox.style.color = "#00ffcc";
+                keyBox.style.borderColor = "#00ffcc";
                 keyBox.innerText = appKey;
-                // क्लिपबोर्ड पर ऑटो-कॉपी करें
+                
+                // तुरंत क्लिपबोर्ड पर कॉपी करो
                 navigator.clipboard.writeText(appKey).then(() => {
-                    msgBox.innerText = "✓ Key Copied to Clipboard! अब ऐप में जाकर पेस्ट करें।";
+                    msgBox.innerText = "✓ Key Copied! अब ऐप में जाकर पेस्ट करें।";
                 }).catch(err => {
-                    msgBox.innerText = "की कॉपी हो गई है, इसे मैन्युअल रूप से कॉपी करें।";
+                    msgBox.innerText = "की मिल गई है, इसे मैन्युअल रूप से कॉपी करें।";
                 });
             } else {
-                keyBox.innerText = "कोई की नहीं मिली! कृपया ऐप से 'Get Key' दबाकर आएं।";
-                msgBox.innerText = "";
+                // अगर कोई सीधे ब्राउज़र में खोलेगा तो यह दिखेगा
+                keyBox.innerText = "❌ कोई की नहीं मिली!";
+                msgBox.innerText = "कृपया ऐप के अंदर से 'Get Key' बटन दबाकर आएं।";
             }
         };
     </script>
