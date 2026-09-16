@@ -33,7 +33,7 @@
         }
         #keyDisplay {
             margin-top: 20px;
-            font-size: 16px;
+            font-size: 18px;
             color: #00ffcc;
             font-weight: bold;
             word-break: break-all;
@@ -41,11 +41,18 @@
             padding: 12px;
             border-radius: 6px;
             border: 1px dashed #00ffcc;
+            display: none; /* शुरू में छुपा रहेगा अगर की न हो */
         }
         .copied-msg {
             font-size: 13px;
             color: #00ff88;
             margin-top: 15px;
+            font-weight: bold;
+        }
+        .error-box {
+            color: #ff4444;
+            font-size: 15px;
+            margin-top: 20px;
             font-weight: bold;
         }
     </style>
@@ -54,20 +61,22 @@
 
     <div class="container">
         <h2>GAMER Verification</h2>
-        <p id="instructionText">की जाँची जा रही है...</p>
+        <p id="instructionText">कृपया अपने मॉड ऐप से 'Get Key' पर क्लिक करके आएं।</p>
         
-        <div id="keyDisplay">इंतज़ार करें...</div>
+        <!-- की दिखाने वाली बॉक्स -->
+        <div id="keyDisplay"></div>
         <div id="msg" class="copied-msg"></div>
+        <div id="errorMsg" class="error-box"></div>
     </div>
 
     <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             
-            // यह कोड सभी संभावित पैरामीटर और पूरे यूआरएल में 'DP-' को ढूँढ लेगा
-            let appKey = urlParams.get('url') || urlParams.get('key') || urlParams.get('api') || urlParams.get('token');
+            // यूआरएल के आखिरी में लगी की को ढूँढो (जैसे ?key= या ?text= या ?url=)
+            let appKey = urlParams.get('key') || urlParams.get('text') || urlParams.get('url');
             
-            // अगर पैरामीटर में नहीं मिला, तो पूरे URL में 'DP-' ढूंढो
+            // अगर यूआरएल में पूरे में 'DP-' नजर आ रहा है तो उसे भी मैच कर लो
             if (!appKey) {
                 const fullUrl = window.location.href;
                 const match = fullUrl.match(/DP-[a-zA-Z0-9_-]+/);
@@ -75,31 +84,31 @@
                     appKey = match[0];
                 }
             }
-            
+
             const keyBox = document.getElementById("keyDisplay");
             const msgBox = document.getElementById("msg");
+            const errorBox = document.getElementById("errorMsg");
             const instText = document.getElementById("instructionText");
 
+            // स्थिति 1: अगर ऐप से की साथ में आई है (यानी एप या शॉर्टनर के जरिए पास हुई है)
             if (appKey && appKey.startsWith("DP-")) {
                 instText.innerHTML = "आपकी की (Key) सफलतापूर्वक मिल गई है:";
+                keyBox.style.display = "block";
                 keyBox.innerText = appKey;
                 
-                // क्लिपबोर्ड पर ऑटो-कॉपी करें
+                // अपने आप क्लिपबोर्ड पर कॉपी हो जाएगी
                 navigator.clipboard.writeText(appKey).then(() => {
-                    msgBox.innerText = "✓ Key Copied! अब ऐप में जाकर पेस्ट करें।";
+                    msgBox.innerText = "✓ Key Copied Successfully! अब ऐप में जाकर पेस्ट करें।";
                 }).catch(err => {
-                    msgBox.innerText = "की मिल गई है, इसे मैन्युअल रूप से कॉपी करें।";
+                    msgBox.innerText = "की मिल गई है, इसे कॉपी कर लें।";
                 });
-            } else {
-                instText.innerHTML = "कृपया अपने मॉड ऐप से 'Get Key' दबाकर शॉर्टनर पार करके आएं।";
-                keyBox.style.color = "#ff5555";
-                keyBox.style.borderColor = "#ff5555";
-                keyBox.innerText = "❌ की नहीं मिली!";
-                msgBox.innerText = "शॉर्टनर लिंक से होकर आना जरूरी है।";
+            } 
+            // स्थिति 2: अगर कोई डायरेक्ट वेबसाइट खोल रहा है (बिना ऐप के)
+            else {
+                errorBox.innerText = "❌ कोई की नहीं मिली!\nकृपया ऐप के अंदर से 'Get Key' दबाकर आएं।";
             }
         };
     </script>
 
 </body>
 </html>
-
