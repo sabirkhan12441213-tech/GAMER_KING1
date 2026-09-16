@@ -83,26 +83,6 @@
         }
         .btn-generate:active { background: rgba(0, 240, 255, 0.1); }
 
-        .support-box {
-            width: 100%; background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
-            padding: 15px; margin-top: 5px; backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3); text-align: center;
-        }
-        .support-box p {
-            margin: 0 0 12px 0; font-size: 0.85rem; color: var(--text-main); font-weight: 600;
-        }
-        .support-box p i { color: var(--neon-pink); }
-        
-        .support-btn {
-            display: block; width: 100%; padding: 12px; border-radius: 12px;
-            border: 1px solid var(--border-pink); background: transparent;
-            color: var(--neon-pink); font-family: 'Orbitron', sans-serif;
-            font-weight: 700; font-size: 0.8rem; text-decoration: none;
-            transition: 0.2s; letter-spacing: 1px;
-        }
-        .support-btn:active { background: rgba(255, 0, 127, 0.1); }
-
         .toast {
             position: fixed; bottom: 30px; background: rgba(15, 15, 22, 0.95);
             border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px;
@@ -123,7 +103,6 @@
         <h1>GAMER KING</h1>
         <div class="version-text">V2 — GAMER KING</div>
 
-        <!-- शुरू में यह बॉक्स खाली रहेगा -->
         <div class="key-display-box" id="keyBox">-------------------</div>
 
         <button class="action-btn" onclick="copyKey()">
@@ -133,11 +112,6 @@
         <button class="action-btn btn-generate" onclick="generateKeyAction()">
             <i class="fas fa-key"></i> GENERATE KEY
         </button>
-
-        <div class="support-box">
-            <p><i class="fas fa-heart"></i> Any Problem? Check Gamer King App!</p>
-            <a href="#" class="support-btn" onclick="showToast('Gamer King App se hi key banayein!')">Gamer King App</a>
-        </div>
     </div>
 
     <div id="toast" class="toast">Key copied successfully!</div>
