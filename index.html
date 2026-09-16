@@ -30,37 +30,22 @@
             font-size: 14px;
             color: #cccccc;
         }
-        button {
-            background-color: #6200EE;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-        button:hover {
-            background-color: #7c4dff;
-        }
         #keyDisplay {
             margin-top: 20px;
-            font-size: 17px;
+            font-size: 20px;
             color: #00ffcc;
             font-weight: bold;
             word-break: break-all;
             background: #0a000f;
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
-            border: 1px dashed #6200EE;
-            display: none;
+            border: 1px dashed #00ffcc;
         }
         .copied-msg {
-            font-size: 12px;
+            font-size: 13px;
             color: #00ff88;
-            margin-top: 5px;
+            margin-top: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -68,45 +53,36 @@
 
     <div class="container">
         <h2>DPMods Verification</h2>
-        <p>अपनी 24 घंटे की वेरीफाइड की (Key) प्राप्त करने के लिए नीचे क्लिक करें:</p>
-        <button onclick="generateKey()">Get Key</button>
-        <div id="keyDisplay"></div>
+        <p>آپ کی ایپ کی اصل Key نیچے آ چکی ہے:</p>
+        
+        <!-- यहाँ ऐप द्वारा भेजी गई असली की दिखेगी -->
+        <div id="keyDisplay">Key Load ho rahi hai...</div>
         <div id="msg" class="copied-msg"></div>
     </div>
 
     <script>
-        // पेज खुलते ही चेक करेगा कि ऐप ने कोई की भेजी है या नहीं
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const passedKey = urlParams.get('key');
-            
-            if (passedKey && passedKey.startsWith('DP-')) {
-                const keyBox = document.getElementById("keyDisplay");
-                keyBox.style.display = "block";
-                keyBox.innerText = passedKey;
-                
-                // ऑटोमैटिक कॉपी करना
-                navigator.clipboard.writeText(passedKey);
-                document.getElementById("msg").innerText = "Key Copied! अब ऐप में जाकर पेस्ट करें।";
-            }
-        };
-
-        function generateKey() {
-            // अगर कोई डायरेक्ट ब्राउज़र से खोले तो उसके लिए रैंडम की बना देगा
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let key = "DP-";
-            for (let i = 0; i < 6; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
+            const appKey = urlParams.get('key');
             
             const keyBox = document.getElementById("keyDisplay");
-            keyBox.style.display = "block";
-            keyBox.innerText = key;
-            
-            navigator.clipboard.writeText(key);
-            document.getElementById("msg").innerText = "Key Copied to Clipboard! ऐप में पेस्ट करें।";
-        }
+            const msgBox = document.getElementById("msg");
+
+            if (appKey && appKey.startsWith('DP-')) {
+                // ऐप ने जो की भेजी है, बिल्कुल वही यहाँ दिखाएगा
+                keyBox.innerText = appKey;
+                
+                // ऑटोमैटिक कॉपी कर लेगा
+                navigator.clipboard.writeText(appKey);
+                msgBox.innerText = "✓ Key Copied to Clipboard! अब ऐप में जाकर पेस्ट करें।";
+            } else {
+                // अगर कोई सीधे लिंक खोलेगा तो बता देगा
+                keyBox.innerText = "Error: App se Get Key dabao!";
+                msgBox.innerText = "कृपया ऐप के अंदर से 'Get Key' बटन पर क्लिक करें।";
+            }
+        };
     </script>
 
 </body>
 </html>
+
