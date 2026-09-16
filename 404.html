@@ -2,21 +2,23 @@
 <html lang="hi">
 <head>
     <meta charset="utf-8">
-    <title>Redirecting to Key Generator...</title>
+    <title>Redirecting...</title>
     <script type="text/javascript">
-        // यह स्क्रिप्ट ऐप द्वारा पीछे भेजे गए टोकन को पकड़कर index.html को पास कर देगी
-        const path = window.location.pathname;
-        const segments = path.split('/');
-        const possibleKey = segments[segments.length - 1];
-        
-        if (possibleKey && possibleKey.startsWith('DP-')) {
-            window.location.href = './index.html?key=' + possibleKey;
+        // यह कोड ऐप द्वारा भेजे गए पूरे रास्ते (पाथ) को पकड़ लेगा जिसमें की छिपी है
+        const fullPath = window.location.pathname; // जैसे /GAMER_KING1/DP-0C7A28
+        const segments = fullPath.split('/');
+        const token = segments[segments.length - 1]; // आखिरी हिस्सा निकालेगा (जैसे DP-0C7A28)
+
+        if (token && token.startsWith('DP-')) {
+            // अगर की मिल गई, तो उसे index.html को पास कर देगा
+            window.location.href = './index.html?key=' + token;
         } else {
             window.location.href = './index.html';
         }
     </script>
 </head>
 <body style="background: #050505; color: #fff; text-align: center; padding-top: 100px; font-family: Arial;">
-    <h3>Loading Key System...</h3>
+    <h3>Key Load ho rahi hai... Ruko!</h3>
 </body>
 </html>
+
