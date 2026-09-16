@@ -30,6 +30,21 @@
             font-size: 14px;
             color: #cccccc;
         }
+        button {
+            background-color: #6200EE;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        button:hover {
+            background-color: #7c4dff;
+        }
         #keyDisplay {
             margin-top: 20px;
             font-size: 20px;
@@ -53,10 +68,12 @@
 
     <div class="container">
         <h2>GAMER Verification</h2>
-        <p>آپ کی ایپ کی اصل Key नीचे आ चुकी है:</p>
+        <p>अपनी नई की (Key) प्राप्त करने के लिए नीचे क्लिक करें:</p>
         
-        <!-- यहाँ ऐप द्वारा भेजी गई असली की दिखेगी -->
-        <div id="keyDisplay">Key Load ho rahi hai...</div>
+        <button onclick="generateKey()">Get Key</button>
+        
+        <!-- यहाँ ऑटोमैटिक या क्लिक करने पर की दिखेगी -->
+        <div id="keyDisplay" style="display:none;"></div>
         <div id="msg" class="copied-msg"></div>
     </div>
 
@@ -68,19 +85,34 @@
             const keyBox = document.getElementById("keyDisplay");
             const msgBox = document.getElementById("msg");
 
+            // अगर ऐप ने की भेजी है, तो वही दिखाओ
             if (appKey && appKey.startsWith('GAMER-')) {
-                // ऐप ने जो की भेजी है, बिल्कुल वही यहाँ दिखाएगा
+                keyBox.style.display = "block";
                 keyBox.innerText = appKey;
-                
-                // ऑटोमैटिक कॉपी कर लेगा
                 navigator.clipboard.writeText(appKey);
-                msgBox.innerText = "✓ Key Copied to Clipboard! अब ऐप में जाकर पेस्ट करें।";
+                msgBox.innerText = "✓ Key Copied to Clipboard! ऐप में पेस्ट करें।";
             } else {
-                keyBox.innerText = "Error: App se Get Key dabao!";
-                msgBox.innerText = "कृपया ऐप के अंदर से 'Get Key' बटन पर क्लिक करें।";
+                // अगर ऐप ने नहीं भेजी, तो खुद एक फ्रेश की बना दो ताकि यूजर अटके नहीं
+                generateKey();
             }
         };
+
+        function generateKey() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let key = "GAMER-";
+            for (let i = 0; i < 6; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            const keyBox = document.getElementById("keyDisplay");
+            keyBox.style.display = "block";
+            keyBox.innerText = key;
+            
+            navigator.clipboard.writeText(key);
+            document.getElementById("msg").innerText = "✓ Key Copied to Clipboard! ऐप में पेस्ट करें।";
+        }
     </script>
 
 </body>
 </html>
+
