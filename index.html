@@ -36,7 +36,6 @@
             width: 100%; max-width: 380px; display: flex; flex-direction: column; align-items: center; text-align: center;
         }
 
-        /* गोल प्रोफाइल फोटो और ग्लोइंग बॉर्डर */
         .avatar-box {
             width: 130px; height: 130px; border-radius: 50%;
             border: 2px solid var(--neon-pink); padding: 4px;
@@ -59,7 +58,6 @@
             letter-spacing: 1.5px;
         }
 
-        /* ऊपर वाला की दिखाने का सादा और स्टाइलिश बॉक्स (शुरू में खाली/डैश रहेगा) */
         .key-display-box {
             width: 100%; background: var(--card-bg);
             border: 1px solid var(--border-cyan); border-radius: 16px;
@@ -70,7 +68,6 @@
             min-height: 55px; display: flex; align-items: center; justify-content: center;
         }
 
-        /* बटन्स का डिज़ाइन (नियोन लुक) */
         .action-btn {
             width: 100%; padding: 15px; border-radius: 16px; border: 1px solid var(--border-pink);
             background: transparent; color: var(--neon-pink); font-family: 'Orbitron', sans-serif;
@@ -86,7 +83,6 @@
         }
         .btn-generate:active { background: rgba(0, 240, 255, 0.1); }
 
-        /* नीचे वाला सपोर्ट बॉक्स */
         .support-box {
             width: 100%; background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
@@ -107,7 +103,6 @@
         }
         .support-btn:active { background: rgba(255, 0, 127, 0.1); }
 
-        /* सक्सेस टोस्ट मेसेज */
         .toast {
             position: fixed; bottom: 30px; background: rgba(15, 15, 22, 0.95);
             border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px;
@@ -121,7 +116,6 @@
 <body>
 
     <div class="container">
-        <!-- गोल प्रोफाइल फोटो -->
         <div class="avatar-box">
             <img src="https://i.ibb.co/hJ63Xj3N/photo.jpg" alt="Gamer King" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400'">
         </div>
@@ -129,20 +123,17 @@
         <h1>GAMER KING</h1>
         <div class="version-text">V2 — GAMER KING</div>
 
-        <!-- ऊपर वाला की दिखने का सादा बॉक्स (शुरू में खाली रहेगा) -->
+        <!-- शुरू में यह बॉक्स खाली रहेगा -->
         <div class="key-display-box" id="keyBox">-------------------</div>
 
-        <!-- COPY KEY बटन -->
         <button class="action-btn" onclick="copyKey()">
             <i class="fas fa-copy"></i> COPY KEY
         </button>
 
-        <!-- GENERATE KEY बटन (इस पर क्लिक करने से की ऊपर वाले बॉक्स में आएगी) -->
         <button class="action-btn btn-generate" onclick="generateKeyAction()">
             <i class="fas fa-key"></i> GENERATE KEY
         </button>
 
-        <!-- सपोर्ट बॉक्स -->
         <div class="support-box">
             <p><i class="fas fa-heart"></i> Any Problem? Check Gamer King App!</p>
             <a href="#" class="support-btn" onclick="showToast('Gamer King App se hi key banayein!')">Gamer King App</a>
@@ -156,8 +147,6 @@
 
         window.onload = function() {
             const fullUrl = window.location.href;
-            
-            // URL से ऐप द्वारा भेजी गई की (DP-XXXXXX) को चुपचाप पकड़कर रख लेंगे
             const match = fullUrl.match(/DP-[A-Z0-9]+/);
 
             if (match) {
@@ -167,23 +156,21 @@
             }
         };
 
-        // जब यूजर नीचे 'GENERATE KEY' बटन पर क्लिक करेगा
         function generateKeyAction() {
             const keyBox = document.getElementById('keyBox');
             
             if (extractedKey) {
-                keyBox.innerText = extractedKey; // अब ऊपर वाले बॉक्स में असली की शो हो जाएगी
+                keyBox.innerText = extractedKey;
                 showToast("Key Generated Successfully!");
             } else {
                 showToast("Kripya Gamer King App ke andar se aayen!");
             }
         }
 
-        // जब यूजर 'COPY KEY' बटन पर क्लिक करेगा
         function copyKey() {
-            const keyBox = document.getElementById('keyBox').innerText;
+            const keyBoxText = document.getElementById('keyBox').innerText;
             
-            if (!extractedKey || keyBox === "-------------------") {
+            if (!extractedKey || keyBoxText === "-------------------") {
                 showToast("Pehle 'Generate Key' button dabayein!");
                 return;
             }
