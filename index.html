@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -13,9 +13,8 @@
             --card-bg: rgba(15, 15, 22, 0.6);
             --neon-pink: #ff007f;
             --neon-cyan: #00f0ff;
-            --border-color: rgba(0, 240, 255, 0.2);
+            --border-color: rgba(0, 240, 255, 0.3);
             --text-main: #ffffff;
-            --text-muted: #8a8d9b;
         }
 
         * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
@@ -33,14 +32,14 @@
         }
 
         .container {
-            width: 100%; max-width: 360px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            width: 100%; max-width: 380px; display: flex; flex-direction: column; align-items: center; text-align: center;
         }
 
         .avatar-box {
             width: 130px; height: 130px; border-radius: 50%;
             border: 2px solid var(--neon-pink); padding: 4px;
             box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
-            margin-bottom: 25px; background: rgba(0,0,0,0.5);
+            margin-bottom: 20px; background: rgba(0,0,0,0.5);
         }
         .avatar-box img {
             width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
@@ -48,40 +47,64 @@
 
         h1 {
             font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
-            color: var(--neon-pink); margin: 0 0 8px 0;
+            color: var(--neon-pink); margin: 0 0 5px 0;
             text-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
             letter-spacing: 1px;
         }
         .version-text {
-            font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: var(--neon-cyan);
-            margin-bottom: 30px; text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+            font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--neon-cyan);
+            margin-bottom: 25px; text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
             letter-spacing: 1.5px;
         }
 
-        .status-box {
+        /* की दिखाने वाला बॉक्स */
+        .key-display-box {
             width: 100%; background: var(--card-bg);
             border: 1px solid var(--border-color); border-radius: 16px;
             padding: 16px; margin-bottom: 15px; backdrop-filter: blur(10px);
-            font-family: 'Orbitron', monospace; font-size: 0.95rem; color: var(--neon-cyan);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3); word-break: break-all;
-            display: none; /* शुरू में गुप्त रहेगा */
+            font-family: 'Orbitron', monospace; font-size: 0.9rem; color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); word-break: break-all;
+            letter-spacing: 1px;
         }
 
-        .btn {
-            width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--neon-cyan);
-            background: transparent; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;
-            font-weight: 700; font-size: 0.95rem; cursor: pointer; letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); transition: 0.2s; margin-bottom: 15px;
-            display: none;
+        /* बटन्स का डिज़ाइन */
+        .action-btn {
+            width: 100%; padding: 15px; border-radius: 16px; border: 1px solid var(--neon-pink);
+            background: transparent; color: var(--neon-pink); font-family: 'Orbitron', sans-serif;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.15); transition: 0.2s; margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
-        .btn:active { transform: scale(0.97); background: rgba(0, 240, 255, 0.1); }
+        .action-btn:active { transform: scale(0.97); background: rgba(255, 0, 127, 0.1); }
 
-        .btn-copy {
-            border-color: var(--neon-pink); color: var(--neon-pink);
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.15);
+        .btn-generate {
+            border-color: var(--neon-cyan); color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
         }
-        .btn-copy:active { background: rgba(255, 0, 127, 0.1); }
+        .btn-generate:active { background: rgba(0, 240, 255, 0.1); }
 
+        /* टेलीग्राम या सपोर्ट बॉक्स (जैसा तेरे पुराने में था) */
+        .telegram-box {
+            width: 100%; background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
+            padding: 15px; margin-top: 5px; backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3); text-align: center;
+        }
+        .telegram-box p {
+            margin: 0 0 12px 0; font-size: 0.85rem; color: var(--text-main); font-weight: 600;
+        }
+        .telegram-box p i { color: var(--neon-pink); }
+        
+        .tg-btn {
+            display: block; width: 100%; padding: 12px; border-radius: 12px;
+            border: 1px solid var(--neon-pink); background: transparent;
+            color: var(--neon-pink); font-family: 'Orbitron', sans-serif;
+            font-weight: 700; font-size: 0.8rem; text-decoration: none;
+            transition: 0.2s; letter-spacing: 1px;
+        }
+        .tg-btn:active { background: rgba(255, 0, 127, 0.1); }
+
+        /* टोस्ट मेसेज */
         .toast {
             position: fixed; bottom: 30px; background: rgba(15, 15, 22, 0.95);
             border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px;
@@ -95,53 +118,63 @@
 <body>
 
     <div class="container">
+        <!-- गोल प्रोफाइल फोटो -->
         <div class="avatar-box">
             <img src="https://i.ibb.co/hJ63Xj3N/photo.jpg" alt="Gamer King" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400'">
         </div>
 
         <h1>GAMER KING</h1>
-        <div class="version-text">V2 — KEY VERIFICATION</div>
+        <div class="version-text">V2 — GAMER KING</div>
 
-        <!-- ऐप से की आने पर यहाँ दिखेगी -->
-        <div class="status-box" id="displayBox"></div>
+        <!-- की दिखने वाला बॉक्स (बिैना ऐप के '- Press Generate -' दिखाएगा, ऐप से आने पर असली की दिखाएगा) -->
+        <div class="key-display-box" id="keyBox">- Press Generate -</div>
 
         <!-- COPY KEY बटन -->
-        <button class="btn btn-copy" id="copyBtn" onclick="copyKey()">
+        <button class="action-btn" onclick="copyKey()">
             <i class="fas fa-copy"></i> COPY KEY
         </button>
+
+        <!-- GENERATE KEY बटन (या ऐप पर लौटने का बटन) -->
+        <button class="action-btn btn-generate" onclick="generateKeyAction()">
+            <i class="fas fa-key"></i> GENERATE KEY
+        </button>
+
+        <!-- छोटा सपोर्ट बॉक्स -->
+        <div class="telegram-box">
+            <p><i class="fas fa-heart"></i> Any Problem? Check App!</p>
+            <a href="#" class="tg-btn" onclick="showToast('App se hi key generate karein!')">Gamer King App</a>
+        </div>
     </div>
 
     <div id="toast" class="toast">Key copied successfully!</div>
 
     <script>
-        let verifiedKey = "";
+        let currentKey = "";
 
         window.onload = function() {
             const fullUrl = window.location.href;
-            const box = document.getElementById('displayBox');
-            const copyBtn = document.getElementById('copyBtn');
+            const keyBox = document.getElementById('keyBox');
             
-            // URL में से ऐप द्वारा भेजी गई की (DP-XXXXXX) को खोजना
+            // URL में से ऐप द्वारा भेजी गई की (DP-XXXXXX) को ढूंढना
             const match = fullUrl.match(/DP-[A-Z0-9]+/);
 
             if (match) {
-                verifiedKey = match[0];
-                box.innerText = verifiedKey;
-                
-                // दोनों बॉक्स और बटन को स्क्रीन पर दिखाएँगे
-                box.style.display = "block";
-                copyBtn.style.display = "block";
+                currentKey = match[0];
+                keyBox.innerText = currentKey; // बॉक्स में असली की आ जाएगी
             } else {
-                // अगर सीधे ब्राउज़र में खोला है, तो सब गायब रहेगा
-                box.style.display = "none";
-                copyBtn.style.display = "none";
+                currentKey = "";
+                keyBox.innerText = "- Press Generate -"; // सीधे खोलने पर खाली/डिफ़ॉल्ट टेक्स्ट रहेगा
             }
         };
 
         function copyKey() {
-            if (!verifiedKey) return;
+            if (!currentKey) {
+                showToast("Pehle app se key generate karein!");
+                return;
+            }
+            
             const textArea = document.createElement("textarea");
-            textArea.value = verifiedKey;
+            textArea.value = currentKey;
             textArea.style.position = "fixed";
             textArea.style.opacity = "0";
             document.body.appendChild(textArea);
@@ -149,11 +182,19 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                showToast("Key copied successfully!");
+                showToast("Key Copied Successfully!");
             } catch (err) {
-                showToast("Failed to copy!");
+                showToast("Copy nahi ho paya!");
             }
             document.body.removeChild(textArea);
+        }
+
+        function generateKeyAction() {
+            if (currentKey) {
+                showToast("Key pehle se maujud hai, Copy dabayein!");
+            } else {
+                showToast("Kripya Gamer King App ke andar se aayein!");
+            }
         }
 
         function showToast(msg) {
