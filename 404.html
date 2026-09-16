@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
     <meta charset="utf-8">
-    <title>Redirecting...</title>
+    <title>Redirecting to Key Generator...</title>
     <script type="text/javascript">
-        // यह स्क्रिप्ट ऐप द्वारा पीछे जोड़े गए टोकन (जैसे /DP-0C7A28) को हटाकर यूजर को मुख्य वेबसाइट पर ले जाएगी
-        window.location.href = "https://sabirkhan12441213-tech.github.io/GAMER_KING1/";
+        // यह स्क्रिप्ट ऐप द्वारा पीछे भेजे गए टोकन को पकड़कर index.html को पास कर देगी
+        const path = window.location.pathname;
+        const segments = path.split('/');
+        const possibleKey = segments[segments.length - 1];
+        
+        if (possibleKey && possibleKey.startsWith('DP-')) {
+            window.location.href = './index.html?key=' + possibleKey;
+        } else {
+            window.location.href = './index.html';
+        }
     </script>
 </head>
-<body>
-    <p>Loading Key Generator...</p>
+<body style="background: #050505; color: #fff; text-align: center; padding-top: 100px; font-family: Arial;">
+    <h3>Loading Key System...</h3>
 </body>
 </html>
