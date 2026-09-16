@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAMER Key Generator</title>
+    <title>GAMER Key Verification</title>
     <style>
         body {
             background-color: #050505;
@@ -30,24 +30,9 @@
             font-size: 14px;
             color: #cccccc;
         }
-        button {
-            background-color: #6200EE;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-        button:hover {
-            background-color: #7c4dff;
-        }
         #keyDisplay {
             margin-top: 20px;
-            font-size: 18px;
+            font-size: 16px;
             color: #00ffcc;
             font-weight: bold;
             word-break: break-all;
@@ -57,9 +42,9 @@
             border: 1px dashed #00ffcc;
         }
         .copied-msg {
-            font-size: 13px;
+            font-size: 14px;
             color: #00ff88;
-            margin-top: 10px;
+            margin-top: 15px;
             font-weight: bold;
         }
     </style>
@@ -68,49 +53,34 @@
 
     <div class="container">
         <h2>GAMER Verification</h2>
-        <p>अपनी की (Key) प्राप्त करने के लिए नीचे क्लिक करें:</p>
+        <p>आपकी की (Key) लोड हो रही है...</p>
         
-        <button onclick="generateKey()">Get New Key</button>
-        
-        <!-- की यहाँ दिखेगी और ऑटो-कॉपी हो जाएगी -->
-        <div id="keyDisplay" style="display:none;"></div>
+        <!-- ऐप द्वारा भेजी गई की यहाँ दिखेगी -->
+        <div id="keyDisplay">लोड हो रहा है...</div>
         <div id="msg" class="copied-msg"></div>
     </div>
 
     <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const appKey = urlParams.get('key');
+            const appKey = urlParams.get('url'); // ध्यान दे, ऐप 'url' पैरामीटर में की भेज रहा है
             
             const keyBox = document.getElementById("keyDisplay");
             const msgBox = document.getElementById("msg");
 
-            // अगर ऐप ने की भेजी है, तो वही दिखाओ और कॉपी करो
             if (appKey) {
-                keyBox.style.display = "block";
                 keyBox.innerText = appKey;
-                navigator.clipboard.writeText(appKey);
-                msgBox.innerText = "✓ Key Copied to Clipboard! ऐप में पेस्ट करें।";
+                // क्लिपबोर्ड पर ऑटो-कॉपी करें
+                navigator.clipboard.writeText(appKey).then(() => {
+                    msgBox.innerText = "✓ Key Copied to Clipboard! अब ऐप में जाकर पेस्ट करें।";
+                }).catch(err => {
+                    msgBox.innerText = "की कॉपी हो गई है, इसे मैन्युअल रूप से कॉपी करें।";
+                });
             } else {
-                // अगर सीधे खुले, तो खुद एक फ्रेश की बना दो
-                generateKey();
+                keyBox.innerText = "कोई की नहीं मिली! कृपया ऐप से 'Get Key' दबाकर आएं।";
+                msgBox.innerText = "";
             }
         };
-
-        function generateKey() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let key = "DP-";
-            for (let i = 0; i < 18; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            
-            const keyBox = document.getElementById("keyDisplay");
-            keyBox.style.display = "block";
-            keyBox.innerText = key;
-            
-            navigator.clipboard.writeText(key);
-            document.getElementById("msg").innerText = "✓ Key Copied to Clipboard! ऐप में पेस्ट करें।";
-        }
     </script>
 
 </body>
