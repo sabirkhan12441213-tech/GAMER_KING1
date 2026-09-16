@@ -2,102 +2,201 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DPMods Key Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gamer King - Key Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        :root {
+            --bg: #050508;
+            --card-bg: rgba(15, 15, 22, 0.7);
+            --neon-pink: #ff007f;
+            --neon-cyan: #00f0ff;
+            --border-cyan: rgba(0, 240, 255, 0.4);
+            --border-pink: rgba(255, 0, 127, 0.4);
+            --text-main: #ffffff;
+        }
+
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
         body {
-            background-color: #050505;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 60px;
-            margin: 0;
+            margin: 0; padding: 20px; font-family: 'Inter', sans-serif;
+            background-color: var(--bg); color: var(--text-main);
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            overflow-x: hidden;
         }
+
+        body::before {
+            content: ''; position: fixed; top: -50px; left: 50%; transform: translateX(-50%);
+            width: 300px; height: 300px; background: rgba(255, 0, 127, 0.15);
+            filter: blur(80px); z-index: -1;
+        }
+
         .container {
-            max-width: 380px;
-            margin: auto;
-            background: #1a0020;
-            padding: 25px;
-            border-radius: 14px;
-            border: 2px solid #9D46FF;
-            box-shadow: 0 0 15px rgba(157, 70, 255, 0.3);
+            width: 100%; max-width: 380px; display: flex; flex-direction: column; align-items: center; text-align: center;
         }
-        h2 {
-            color: #9D46FF;
-            margin-bottom: 10px;
+
+        .avatar-box {
+            width: 130px; height: 130px; border-radius: 50%;
+            border: 2px solid var(--neon-pink); padding: 4px;
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.5);
+            margin-bottom: 20px; background: rgba(0,0,0,0.6);
         }
-        p {
-            font-size: 14px;
-            color: #cccccc;
-            line-height: 1.5;
+        .avatar-box img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
         }
-        #keyDisplay {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #00ffcc;
-            font-weight: bold;
-            word-break: break-all;
-            background: #0a000f;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px dashed #00ffcc;
-            display: none;
+
+        h1 {
+            font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
+            color: var(--neon-pink); margin: 0 0 5px 0;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+            letter-spacing: 1px;
         }
-        .copied-msg {
-            font-size: 13px;
-            color: #00ff88;
-            margin-top: 15px;
-            font-weight: bold;
+        .version-text {
+            font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: var(--neon-cyan);
+            margin-bottom: 25px; text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+            letter-spacing: 1.5px;
         }
-        .error-box {
-            color: #ff4444;
-            font-size: 15px;
-            margin-top: 20px;
-            font-weight: bold;
+
+        .key-display-box {
+            width: 100%; background: var(--card-bg);
+            border: 1px solid var(--border-cyan); border-radius: 16px;
+            padding: 16px; margin-bottom: 15px; backdrop-filter: blur(10px);
+            font-family: 'Orbitron', monospace; font-size: 0.95rem; color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); word-break: break-all;
+            letter-spacing: 1px; text-shadow: 0 0 5px rgba(0, 240, 255, 0.4);
+            min-height: 55px; display: flex; align-items: center; justify-content: center;
         }
+
+        .action-btn {
+            width: 100%; padding: 15px; border-radius: 16px; border: 1px solid var(--border-pink);
+            background: transparent; color: var(--neon-pink); font-family: 'Orbitron', sans-serif;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.15); transition: 0.2s; margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .action-btn:active { transform: scale(0.97); background: rgba(255, 0, 127, 0.1); }
+
+        .btn-generate {
+            border-color: var(--border-cyan); color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+        .btn-generate:active { background: rgba(0, 240, 255, 0.1); }
+
+        .support-box {
+            width: 100%; background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
+            padding: 15px; margin-top: 5px; backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3); text-align: center;
+        }
+        .support-box p {
+            margin: 0 0 12px 0; font-size: 0.85rem; color: var(--text-main); font-weight: 600;
+        }
+        .support-box p i { color: var(--neon-pink); }
+        
+        .support-btn {
+            display: block; width: 100%; padding: 12px; border-radius: 12px;
+            border: 1px solid var(--border-pink); background: transparent;
+            color: var(--neon-pink); font-family: 'Orbitron', sans-serif;
+            font-weight: 700; font-size: 0.8rem; text-decoration: none;
+            transition: 0.2s; letter-spacing: 1px;
+        }
+        .support-btn:active { background: rgba(255, 0, 127, 0.1); }
+
+        .toast {
+            position: fixed; bottom: 30px; background: rgba(15, 15, 22, 0.95);
+            border: 1px solid var(--neon-cyan); color: var(--text-main); padding: 10px 20px;
+            border-radius: 30px; font-size: 0.8rem; font-weight: 600; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            transform: translateY(100px); opacity: 0; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2>DPMods Verification</h2>
-        <p id="instructionText">की की जाँच की जा रही है...</p>
-        
-        <div id="keyDisplay"></div>
-        <div id="msg" class="copied-msg"></div>
-        <div id="errorMsg" class="error-box"></div>
+        <div class="avatar-box">
+            <img src="https://i.ibb.co/hJ63Xj3N/photo.jpg" alt="Gamer King" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400'">
+        </div>
+
+        <h1>GAMER KING</h1>
+        <div class="version-text">V2 — GAMER KING</div>
+
+        <!-- शुरू में यह बॉक्स खाली रहेगा -->
+        <div class="key-display-box" id="keyBox">-------------------</div>
+
+        <button class="action-btn" onclick="copyKey()">
+            <i class="fas fa-copy"></i> COPY KEY
+        </button>
+
+        <button class="action-btn btn-generate" onclick="generateKeyAction()">
+            <i class="fas fa-key"></i> GENERATE KEY
+        </button>
+
+        <div class="support-box">
+            <p><i class="fas fa-heart"></i> Any Problem? Check Gamer King App!</p>
+            <a href="#" class="support-btn" onclick="showToast('Gamer King App se hi key banayein!')">Gamer King App</a>
+        </div>
     </div>
 
+    <div id="toast" class="toast">Key copied successfully!</div>
+
     <script>
+        let extractedKey = "";
+
         window.onload = function() {
             const fullUrl = window.location.href;
-            const keyBox = document.getElementById("keyDisplay");
-            const msgBox = document.getElementById("msg");
-            const errorBox = document.getElementById("errorMsg");
-            const instText = document.getElementById("instructionText");
-
-            // पूरे लिंक में से 'DP-' से शुरू होने वाला कोड ढूंढ लेगा
             const match = fullUrl.match(/DP-[A-Z0-9]+/);
-            
+
             if (match) {
-                const appKey = match[0];
-                instText.innerHTML = "यह रही आपकी की (Key):";
-                errorBox.style.display = "none";
-                keyBox.style.display = "block";
-                keyBox.innerText = appKey;
-                
-                // ऑटोमैटिक कॉपी कर देगा
-                navigator.clipboard.writeText(appKey).then(() => {
-                    msgBox.innerText = "✓ Key Copied Successfully!";
-                }).catch(err => {
-                    msgBox.innerText = "की मिल गई है, इसे कॉपी कर लें।";
-                });
+                extractedKey = match[0];
             } else {
-                instText.style.display = "none";
-                errorBox.innerText = "❌ कोई की नहीं मिली!\nकृपया ऐप के अंदर से 'Get Key' दबाकर आएं।";
+                extractedKey = "";
             }
         };
-    </script>
 
+        function generateKeyAction() {
+            const keyBox = document.getElementById('keyBox');
+            
+            if (extractedKey) {
+                keyBox.innerText = extractedKey;
+                showToast("Key Generated Successfully!");
+            } else {
+                showToast("Kripya Gamer King App ke andar se aayen!");
+            }
+        }
+
+        function copyKey() {
+            const keyBoxText = document.getElementById('keyBox').innerText;
+            
+            if (!extractedKey || keyBoxText === "-------------------") {
+                showToast("Pehle 'Generate Key' button dabayein!");
+                return;
+            }
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = extractedKey;
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("Key Copied Successfully!");
+            } catch (err) {
+                showToast("Copy nahi ho paya!");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+    </script>
 </body>
 </html>
