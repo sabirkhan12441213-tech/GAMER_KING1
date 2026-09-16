@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -64,17 +64,23 @@
             padding: 16px; margin-bottom: 15px; backdrop-filter: blur(10px);
             font-family: 'Orbitron', monospace; font-size: 0.95rem; color: var(--neon-cyan);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3); word-break: break-all;
-            display: none; /* शुरू में बिल्कुल छुपा रहेगा */
+            display: none; /* शुरू में गुप्त रहेगा */
         }
 
-        .btn-copy {
-            width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--neon-pink);
-            background: transparent; color: var(--neon-pink); font-family: 'Orbitron', sans-serif;
+        .btn {
+            width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--neon-cyan);
+            background: transparent; color: var(--neon-cyan); font-family: 'Orbitron', sans-serif;
             font-weight: 700; font-size: 0.95rem; cursor: pointer; letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.15); transition: 0.2s; margin-bottom: 15px;
-            display: none; /* की मिलने पर ही दिखेगा */
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); transition: 0.2s; margin-bottom: 15px;
+            display: none;
         }
-        .btn-copy:active { background: rgba(255, 0, 127, 0.1); transform: scale(0.97); }
+        .btn:active { transform: scale(0.97); background: rgba(0, 240, 255, 0.1); }
+
+        .btn-copy {
+            border-color: var(--neon-pink); color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.15);
+        }
+        .btn-copy:active { background: rgba(255, 0, 127, 0.1); }
 
         .toast {
             position: fixed; bottom: 30px; background: rgba(15, 15, 22, 0.95);
@@ -96,10 +102,11 @@
         <h1>GAMER KING</h1>
         <div class="version-text">V2 — KEY VERIFICATION</div>
 
-        <!-- यह बॉक्स तभी दिखेगा जब ऐप से की आएगी, वरना बिल्कुल गायब रहेगा -->
+        <!-- ऐप से की आने पर यहाँ दिखेगी -->
         <div class="status-box" id="displayBox"></div>
 
-        <button class="btn-copy" id="copyBtn" onclick="copyKey()">
+        <!-- COPY KEY बटन -->
+        <button class="btn btn-copy" id="copyBtn" onclick="copyKey()">
             <i class="fas fa-copy"></i> COPY KEY
         </button>
     </div>
@@ -114,30 +121,27 @@
             const box = document.getElementById('displayBox');
             const copyBtn = document.getElementById('copyBtn');
             
-            // URL में से ऐप द्वारा भेजी गई की (जैसे DP-XXXXXX) को ढूंढना
+            // URL में से ऐप द्वारा भेजी गई की (DP-XXXXXX) को खोजना
             const match = fullUrl.match(/DP-[A-Z0-9]+/);
 
             if (match) {
                 verifiedKey = match[0];
                 box.innerText = verifiedKey;
                 
-                // बॉक्स और बटन को दिखाएं
+                // दोनों बॉक्स और बटन को स्क्रीन पर दिखाएँगे
                 box.style.display = "block";
                 copyBtn.style.display = "block";
-
-                // ऑटोमैटिक क्लिपबोर्ड पर कॉपी करें
-                copyKeyToClipboard(verifiedKey);
             } else {
-                // अगर कोई की नहीं है (यानी सीधे खोला है), तो सब कुछ खाली/गायब रहेगा
+                // अगर सीधे ब्राउज़र में खोला है, तो सब गायब रहेगा
                 box.style.display = "none";
                 copyBtn.style.display = "none";
             }
         };
 
-        function copyKeyToClipboard(text) {
-            if (!text) return;
+        function copyKey() {
+            if (!verifiedKey) return;
             const textArea = document.createElement("textarea");
-            textArea.value = text;
+            textArea.value = verifiedKey;
             textArea.style.position = "fixed";
             textArea.style.opacity = "0";
             document.body.appendChild(textArea);
@@ -145,15 +149,11 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                showToast("✓ Key copied successfully!");
+                showToast("Key copied successfully!");
             } catch (err) {
-                showToast("की मिल गई है, कॉपी बटन दबाएं।");
+                showToast("Failed to copy!");
             }
             document.body.removeChild(textArea);
-        }
-
-        function copyKey() {
-            copyKeyToClipboard(verifiedKey);
         }
 
         function showToast(msg) {
