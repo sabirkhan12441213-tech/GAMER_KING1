@@ -68,27 +68,41 @@
 
     <div class="container">
         <h2>DPMods Verification</h2>
-        <p>नीचे दिए गए बटन पर क्लिक करके अपनी 24 घंटे की नई की (Key) प्राप्त करें:</p>
+        <p>अपनी 24 घंटे की वेरीफाइड की (Key) प्राप्त करने के लिए नीचे क्लिक करें:</p>
         <button onclick="generateKey()">Get Key</button>
         <div id="keyDisplay"></div>
         <div id="msg" class="copied-msg"></div>
     </div>
 
     <script>
+        // पेज खुलते ही चेक करेगा कि ऐप ने कोई की भेजी है या नहीं
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const passedKey = urlParams.get('key');
+            
+            if (passedKey && passedKey.startsWith('DP-')) {
+                const keyBox = document.getElementById("keyDisplay");
+                keyBox.style.display = "block";
+                keyBox.innerText = passedKey;
+                
+                // ऑटोमैटिक कॉपी करना
+                navigator.clipboard.writeText(passedKey);
+                document.getElementById("msg").innerText = "Key Copied! अब ऐप में जाकर पेस्ट करें।";
+            }
+        };
+
         function generateKey() {
-            // एक यूनिक फॉर्मेट की जनरेट करना
+            // अगर कोई डायरेक्ट ब्राउज़र से खोले तो उसके लिए रैंडम की बना देगा
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let key = "DP-VIP-";
+            let key = "DP-";
             for (let i = 0; i < 6; i++) {
                 key += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             
-            // स्क्रीन पर की दिखाना
             const keyBox = document.getElementById("keyDisplay");
             keyBox.style.display = "block";
             keyBox.innerText = key;
             
-            // ऑटोमैटिक क्लिपबोर्ड पर कॉपी करना
             navigator.clipboard.writeText(key);
             document.getElementById("msg").innerText = "Key Copied to Clipboard! ऐप में पेस्ट करें।";
         }
