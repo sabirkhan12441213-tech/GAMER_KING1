@@ -68,11 +68,11 @@
 
     <div class="container">
         <h2>GAMER Verification</h2>
-        <p>अपनी नई की (Key) प्राप्त करने के लिए नीचे क्लिक करें:</p>
+        <p>अपनी की (Key) प्राप्त करने के लिए नीचे क्लिक करें:</p>
         
         <button onclick="generateKey()">Get New Key</button>
         
-        <!-- जनरेट होने के बाद की यहाँ दिखेगी और ऑटो-कॉपी हो जाएगी -->
+        <!-- की यहाँ दिखेगी और ऑटो-कॉपी हो जाएगी -->
         <div id="keyDisplay" style="display:none;"></div>
         <div id="msg" class="copied-msg"></div>
     </div>
@@ -85,24 +85,22 @@
             const keyBox = document.getElementById("keyDisplay");
             const msgBox = document.getElementById("msg");
 
-            // अगर यूआरएल में पहले से की है, तो वही दिखाओ
-            if (appKey && appKey.startsWith('GAMER-')) {
+            // अगर ऐप ने की भेजी है, तो वही दिखाओ और कॉपी करो
+            if (appKey) {
                 keyBox.style.display = "block";
                 keyBox.innerText = appKey;
                 navigator.clipboard.writeText(appKey);
                 msgBox.innerText = "✓ Key Copied to Clipboard! ऐप में पेस्ट करें।";
             } else {
-                // नहीं तो खुद एक बड़ी फ्रेश की बना दो
+                // अगर सीधे खुले, तो खुद एक फ्रेश की बना दो
                 generateKey();
             }
         };
 
         function generateKey() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let key = "GAMER-";
-            
-            // यहाँ 10 अक्षर की लंबी और बड़ी की जनरेट होगी
-            for (let i = 0; i < 10; i++) {
+            let key = "DP-";
+            for (let i = 0; i < 18; i++) {
                 key += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             
@@ -117,4 +115,3 @@
 
 </body>
 </html>
-
