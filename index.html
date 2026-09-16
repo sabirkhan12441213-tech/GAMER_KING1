@@ -1,4 +1,4 @@
-            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
@@ -59,14 +59,15 @@
             letter-spacing: 1.5px;
         }
 
-        /* की दिखाने वाला शानदार बॉक्स */
+        /* ऊपर वाला की दिखाने का सादा और स्टाइलिश बॉक्स (शुरू में खाली/डैश रहेगा) */
         .key-display-box {
             width: 100%; background: var(--card-bg);
             border: 1px solid var(--border-cyan); border-radius: 16px;
             padding: 16px; margin-bottom: 15px; backdrop-filter: blur(10px);
-            font-family: 'Orbitron', monospace; font-size: 0.9rem; color: var(--neon-cyan);
+            font-family: 'Orbitron', monospace; font-size: 0.95rem; color: var(--neon-cyan);
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); word-break: break-all;
             letter-spacing: 1px; text-shadow: 0 0 5px rgba(0, 240, 255, 0.4);
+            min-height: 55px; display: flex; align-items: center; justify-content: center;
         }
 
         /* बटन्स का डिज़ाइन (नियोन लुक) */
@@ -128,15 +129,15 @@
         <h1>GAMER KING</h1>
         <div class="version-text">V2 — GAMER KING</div>
 
-        <!-- की दिखाने वाला बॉक्स -->
-        <div class="key-display-box" id="keyBox">- Press Generate -</div>
+        <!-- ऊपर वाला की दिखने का सादा बॉक्स (शुरू में खाली रहेगा) -->
+        <div class="key-display-box" id="keyBox">-------------------</div>
 
         <!-- COPY KEY बटन -->
         <button class="action-btn" onclick="copyKey()">
             <i class="fas fa-copy"></i> COPY KEY
         </button>
 
-        <!-- GENERATE KEY बटन -->
+        <!-- GENERATE KEY बटन (इस पर क्लिक करने से की ऊपर वाले बॉक्स में आएगी) -->
         <button class="action-btn btn-generate" onclick="generateKeyAction()">
             <i class="fas fa-key"></i> GENERATE KEY
         </button>
@@ -151,32 +152,44 @@
     <div id="toast" class="toast">Key copied successfully!</div>
 
     <script>
-        let currentKey = "";
+        let extractedKey = "";
 
         window.onload = function() {
             const fullUrl = window.location.href;
-            const keyBox = document.getElementById('keyBox');
             
-            // URL से ऐप द्वारा भेजी गई की (DP-XXXXXX) को पकड़ना
+            // URL से ऐप द्वारा भेजी गई की (DP-XXXXXX) को चुपचाप पकड़कर रख लेंगे
             const match = fullUrl.match(/DP-[A-Z0-9]+/);
 
             if (match) {
-                currentKey = match[0];
-                keyBox.innerText = currentKey; // बॉक्स में असली की आ जाएगी
+                extractedKey = match[0];
             } else {
-                currentKey = "";
-                keyBox.innerText = "- Press Generate -"; // सीधे खोलने पर डिफ़ॉल्ट टेक्स्ट रहेगा
+                extractedKey = "";
             }
         };
 
+        // जब यूजर नीचे 'GENERATE KEY' बटन पर क्लिक करेगा
+        function generateKeyAction() {
+            const keyBox = document.getElementById('keyBox');
+            
+            if (extractedKey) {
+                keyBox.innerText = extractedKey; // अब ऊपर वाले बॉक्स में असली की शो हो जाएगी
+                showToast("Key Generated Successfully!");
+            } else {
+                showToast("Kripya Gamer King App ke andar se aayen!");
+            }
+        }
+
+        // जब यूजर 'COPY KEY' बटन पर क्लिक करेगा
         function copyKey() {
-            if (!currentKey) {
-                showToast("Pehle Gamer King App se aakar key lein!");
+            const keyBox = document.getElementById('keyBox').innerText;
+            
+            if (!extractedKey || keyBox === "-------------------") {
+                showToast("Pehle 'Generate Key' button dabayein!");
                 return;
             }
             
             const textArea = document.createElement("textarea");
-            textArea.value = currentKey;
+            textArea.value = extractedKey;
             textArea.style.position = "fixed";
             textArea.style.opacity = "0";
             document.body.appendChild(textArea);
@@ -189,14 +202,6 @@
                 showToast("Copy nahi ho paya!");
             }
             document.body.removeChild(textArea);
-        }
-
-        function generateKeyAction() {
-            if (currentKey) {
-                showToast("Key pehle se maujud hai, Copy dabayein!");
-            } else {
-                showToast("Kripya Gamer King App ke andar se aayen!");
-            }
         }
 
         function showToast(msg) {
