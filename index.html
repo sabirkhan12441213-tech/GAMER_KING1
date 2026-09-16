@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPMods Key Generator</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 60px;
+            margin: 0;
+        }
+        .container {
+            max-width: 380px;
+            margin: auto;
+            background: #1a0020;
+            padding: 25px;
+            border-radius: 14px;
+            border: 2px solid #9D46FF;
+            box-shadow: 0 0 15px rgba(157, 70, 255, 0.3);
+        }
+        h2 {
+            color: #9D46FF;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 14px;
+            color: #cccccc;
+        }
+        button {
+            background-color: #6200EE;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        button:hover {
+            background-color: #7c4dff;
+        }
+        #keyDisplay {
+            margin-top: 20px;
+            font-size: 17px;
+            color: #00ffcc;
+            font-weight: bold;
+            word-break: break-all;
+            background: #0a000f;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px dashed #6200EE;
+            display: none;
+        }
+        .copied-msg {
+            font-size: 12px;
+            color: #00ff88;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>DPMods Verification</h2>
+        <p>नीचे दिए गए बटन पर क्लिक करके अपनी 24 घंटे की नई की (Key) प्राप्त करें:</p>
+        <button onclick="generateKey()">Get Key</button>
+        <div id="keyDisplay"></div>
+        <div id="msg" class="copied-msg"></div>
+    </div>
+
+    <script>
+        function generateKey() {
+            // एक यूनिक फॉर्मेट की जनरेट करना
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let key = "DP-VIP-";
+            for (let i = 0; i < 6; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            // स्क्रीन पर की दिखाना
+            const keyBox = document.getElementById("keyDisplay");
+            keyBox.style.display = "block";
+            keyBox.innerText = key;
+            
+            // ऑटोमैटिक क्लिपबोर्ड पर कॉपी करना
+            navigator.clipboard.writeText(key);
+            document.getElementById("msg").innerText = "Key Copied to Clipboard! ऐप में पेस्ट करें।";
+        }
+    </script>
+
+</body>
+</html>
