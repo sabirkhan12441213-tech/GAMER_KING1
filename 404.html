@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script type="text/javascript">
-        // यह कोड ऐप द्वारा भेजे गए पूरे रास्ते (पाथ) को पकड़ लेगा जिसमें की छिपी है
-        const fullPath = window.location.pathname; // जैसे /GAMER_KING1/DP-0C7A28
+        // यह कोड ऐप द्वारा भेजे गए पूरे रास्ते को पकड़कर की निकालेगा (GAMER- से शुरू होने वाली)
+        const fullPath = window.location.pathname; 
         const segments = fullPath.split('/');
-        const token = segments[segments.length - 1]; // आखिरी हिस्सा निकालेगा (जैसे DP-0C7A28)
+        const token = segments[segments.length - 1]; 
 
-        if (token && token.startsWith('DP-')) {
-            // अगर की मिल गई, तो उसे index.html को पास कर देगा
+        if (token && token.startsWith('GAMER-')) {
             window.location.href = './index.html?key=' + token;
         } else {
             window.location.href = './index.html';
@@ -21,4 +20,3 @@
     <h3>Key Load ho rahi hai... Ruko!</h3>
 </body>
 </html>
-
