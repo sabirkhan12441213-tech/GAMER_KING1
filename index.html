@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DPMods Key Generator</title>
+    <title>GAMER Key Generator</title>
     <style>
         body {
             background-color: #050505;
@@ -52,8 +52,8 @@
 <body>
 
     <div class="container">
-        <h2>DPMods Verification</h2>
-        <p>آپ کی ایپ کی اصل Key نیچے آ چکی ہے:</p>
+        <h2>GAMER Verification</h2>
+        <p>آپ کی ایپ کی اصل Key नीचे आ चुकी है:</p>
         
         <!-- यहाँ ऐप द्वारा भेजी गई असली की दिखेगी -->
         <div id="keyDisplay">Key Load ho rahi hai...</div>
@@ -68,7 +68,7 @@
             const keyBox = document.getElementById("keyDisplay");
             const msgBox = document.getElementById("msg");
 
-            if (appKey && appKey.startsWith('DP-')) {
+            if (appKey && appKey.startsWith('GAMER-')) {
                 // ऐप ने जो की भेजी है, बिल्कुल वही यहाँ दिखाएगा
                 keyBox.innerText = appKey;
                 
@@ -76,7 +76,6 @@
                 navigator.clipboard.writeText(appKey);
                 msgBox.innerText = "✓ Key Copied to Clipboard! अब ऐप में जाकर पेस्ट करें।";
             } else {
-                // अगर कोई सीधे लिंक खोलेगा तो बता देगा
                 keyBox.innerText = "Error: App se Get Key dabao!";
                 msgBox.innerText = "कृपया ऐप के अंदर से 'Get Key' बटन पर क्लिक करें।";
             }
@@ -85,4 +84,3 @@
 
 </body>
 </html>
-
